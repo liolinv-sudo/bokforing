@@ -7,5 +7,20 @@ app = FastAPI()
 def home():
     return """
     <h1>Mitt bokföringsprogram</h1>
-    <p>Version 0.1</p>
+
+    <p>
+    <a href="#">Kvitton</a>
+    </p>
+
+    <p>
+    <a href="#">Verifikationer</a>
+    </p>
+
+    <p>
+    <a href="#">Kontoplan</a>
+    </p>
+
+    <p>
+    <a href="#">Rapporter</a>
+    </p>
     """
