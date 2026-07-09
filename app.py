@@ -1,7 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse
+import os
 
 app = FastAPI()
+
+UPLOAD_FOLDER = "uploads"
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -21,13 +27,27 @@ def kvitton():
     return """
     <h1>Kvitton</h1>
 
-    <p>Här kommer vi att kunna:</p>
-
-    <ul>
-        <li>Ladda upp kvitton</li>
-        <li>Läsa information från kvitton</li>
-        <li>Skapa bokföringsposter</li>
-    </ul>
+    <form action="/ladda-upp" method="post" enctype="multipart/form-data">
+        <input type="file" name="fil">
+        <button type="submit">Ladda upp</button>
+    </form>
 
     <p><a href="/">← Tillbaka</a></p>
+    """
+
+
+@app.post("/ladda-upp", response_class=HTMLResponse)
+async def ladda_upp(fil: UploadFile = File(...)):
+
+    path = os.path.join(UPLOAD_FOLDER, fil.filename)
+
+    with open(path, "wb") as buffer:
+        buffer.write(await fil.read())
+
+    return f"""
+    <h1>Kvittot är uppladdat</h1>
+
+    <p>Fil: {fil.filename}</p>
+
+    <p><a href="/kvitton">Tillbaka till kvitton</a></p>
     """
