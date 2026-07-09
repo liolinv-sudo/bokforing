@@ -55,3 +55,12 @@ async def ladda_upp(fil: UploadFile = File(...)):
 
     <p><a href="/kvitton">Tillbaka till kvitton</a></p>
     """
+
+@app.get("/dbtest")
+def dbtest():
+
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT 1"))
+        value = result.scalar()
+
+    return {"database": "ok", "result": value}
