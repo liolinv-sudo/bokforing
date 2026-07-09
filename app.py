@@ -1,13 +1,11 @@
-from fastapi import FastAPI, Request
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
-
-@app.get("/")
-def home(request: Request):
-    return templates.TemplateResponse(
-        "index.html",
-        {"request": request}
-    )
+@app.get("/", response_class=HTMLResponse)
+def home():
+    return """
+    <h1>Mitt bokföringsprogram</h1>
+    <p>Version 0.1</p>
+    """
