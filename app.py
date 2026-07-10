@@ -195,3 +195,16 @@ def visa_kvitto(id: int, request: Request):
             "row": row
         }
     )
+
+@app.get("/upgrade-db-image")
+def upgrade_db_image():
+
+    with engine.begin() as conn:
+        conn.execute(text(
+            """
+            ALTER TABLE receipts
+            ADD COLUMN IF NOT EXISTS image_url TEXT
+            """
+        ))
+
+    return {"status": "ok"}
