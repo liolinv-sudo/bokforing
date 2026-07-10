@@ -70,7 +70,7 @@ async def ladda_upp(fil: UploadFile = File(...)):
 
     with engine.begin() as conn:
         conn.execute(
-        receipts.insert().values(
+          receipts.insert().values(
             filename=fil.filename
         )
     )
