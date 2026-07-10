@@ -69,7 +69,7 @@ async def ladda_upp(fil: UploadFile = File(...)):
         buffer.write(await fil.read())
 
     with engine.begin() as conn:
-    conn.execute(
+        conn.execute(
         receipts.insert().values(
             filename=fil.filename
         )
