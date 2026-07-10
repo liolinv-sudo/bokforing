@@ -1,1 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kvitton</title>
+</head>
 
+<body>
+
+<h1>Kvitton</h1>
+
+<table border="1" cellpadding="5">
+
+<tr>
+    <th>ID</th>
+    <th>Filnamn</th>
+    <th>Uppladdad</th>
+</tr>
+
+{% for row in rows %}
+<tr>
+    <td>{{ row.id }}</td>
+    <td>{{ row.filename }}</td>
+    <td>{{ row.uploaded_at }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<p>
+<a href="/">← Tillbaka</a>
+</p>
+
+</body>
+</html>
