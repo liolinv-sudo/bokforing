@@ -59,18 +59,26 @@ def home(request: Request):
     )
 
 
-@app.get("/kvitton", response_class=HTMLResponse)
-def kvitton():
-    return """
-    <h1>Kvitton</h1>
+# @app.get("/kvitton", response_class=HTMLResponse)
+# def kvitton():
+  #  return """
+  #  <h1>Kvitton</h1>
 
-    <form action="/ladda-upp" method="post" enctype="multipart/form-data">
-        <input type="file" name="fil">
-        <button type="submit">Ladda upp</button>
-    </form>
+   # <form action="/ladda-upp" method="post" enctype="multipart/form-data">
+    #    <input type="file" name="fil">
+    #    <button type="submit">Ladda upp</button>
+  #  </form>
 
-    <p><a href="/">← Tillbaka</a></p>
-    """
+   # <p><a href="/">← Tillbaka</a></p>
+  #  """
+
+@app.get("/kvitton")
+def kvitton(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="kvitton.html"
+    )
 
 
 @app.post("/ladda-upp", response_class=HTMLResponse)
