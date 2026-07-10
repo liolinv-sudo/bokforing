@@ -12,6 +12,8 @@ from sqlalchemy import (
     DateTime,
     MetaData
 )
+from fastapi import Request
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
 
