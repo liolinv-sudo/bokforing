@@ -14,6 +14,7 @@
     <th>ID</th>
     <th>Filnamn</th>
     <th>Uppladdad</th>
+    <th>Åtgärd</th>
 </tr>
 
 {% for row in rows %}
@@ -21,6 +22,11 @@
     <td>{{ row.id }}</td>
     <td>{{ row.filename }}</td>
     <td>{{ row.uploaded_at }}</td>
+    <td>
+        <a href="/kvitto/{{ row.id }}">
+            <button>Visa</button>
+        </a>
+    </td>
 </tr>
 {% endfor %}
 
