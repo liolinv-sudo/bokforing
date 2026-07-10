@@ -30,8 +30,10 @@ receipts = Table(
     "receipts",
     metadata,
     Column("id", Integer, primary_key=True),
-    Column("filename", String(255))
+    Column("filename", String(255)),
+    Column("uploaded_at", DateTime)
 )
+
 
 metadata.create_all(engine)
 
