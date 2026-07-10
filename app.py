@@ -92,3 +92,22 @@ def dbtest():
         value = result.scalar()
 
     return {"database": "ok", "result": value}
+
+@app.get("/lista")
+def lista():
+
+    with engine.connect() as conn:
+        result = conn.execute(
+            receipts.select()
+        )
+
+        rows = result.fetchall()
+
+    html = "<h1>Kvitton</h1><ul>"
+
+    for row in rows:
+        html += f"<li>{row.filename}</li>"
+
+    html += "</ul>"
+
+    return HTMLResponse(html)
