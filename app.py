@@ -1,8 +1,16 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse
 import os
-from sqlalchemy import create_engine, text
-import os
+#from sqlalchemy import create_engine, text
+from sqlalchemy import (
+    create_engine,
+    text,
+    Table,
+    Column,
+    Integer,
+    String,
+    MetaData
+)
 
 app = FastAPI()
 
