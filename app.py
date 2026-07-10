@@ -111,3 +111,16 @@ def lista():
     html += "</ul>"
 
     return HTMLResponse(html)
+
+@app.get("/upgrade-db")
+def upgrade_db():
+
+    with engine.begin() as conn:
+        conn.execute(text(
+            """
+            ALTER TABLE receipts
+            ADD COLUMN IF NOT EXISTS uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            """
+        ))
+
+    return {"status": "ok"}
