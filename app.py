@@ -174,3 +174,24 @@ def upgrade_db():
         ))
 
     return {"status": "ok"}
+
+@app.get("/kvitto/{id}")
+def visa_kvitto(id: int, request: Request):
+
+    with engine.connect() as conn:
+        row = conn.execute(
+            receipts.select().where(receipts.c.id == id)
+        ).fetchone()
+
+    if row is None:
+        return HTMLResponse(
+            "<h1>Kvitto hittades inte</h1>"
+        )
+
+    return templates.TemplateResponse(
+        request=request,
+        name="kvitto.html",
+        context={
+            "row": row
+        }
+    )
