@@ -40,17 +40,23 @@ receipts = Table(
 
 
 metadata.create_all(engine)
+#@app.get("/", response_class=HTMLResponse)
+#def home():
+ #   return """
+  #  <h1>Mitt bokföringsprogram</h1>
 
-@app.get("/", response_class=HTMLResponse)
-def home():
-    return """
-    <h1>Mitt bokföringsprogram</h1>
+  #  <p><a href="/kvitton">Kvitton</a></p>
+   # <p><a href="#">Verifikationer</a></p>
+  #  <p><a href="#">Kontoplan</a></p>
+  #  <p><a href="#">Rapporter</a></p>
+  #  """
 
-    <p><a href="/kvitton">Kvitton</a></p>
-    <p><a href="#">Verifikationer</a></p>
-    <p><a href="#">Kontoplan</a></p>
-    <p><a href="#">Rapporter</a></p>
-    """
+@app.get("/")
+def home(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html"
+    )
 
 
 @app.get("/kvitton", response_class=HTMLResponse)
