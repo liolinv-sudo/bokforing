@@ -22,6 +22,18 @@ if not os.path.exists(UPLOAD_FOLDER):
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL)
+
+metadata = MetaData()
+
+receipts = Table(
+    "receipts",
+    metadata,
+    Column("id", Integer, primary_key=True),
+    Column("filename", String(255))
+)
+
+metadata.create_all(engine)
+
 @app.get("/", response_class=HTMLResponse)
 def home():
     return """
