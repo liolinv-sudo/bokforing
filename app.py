@@ -100,20 +100,34 @@ def dbtest():
 def lista():
 
     with engine.connect() as conn:
-        result = conn.execute(
+        rows = conn.execute(
             receipts.select()
-        )
+        ).fetchall()
 
-        rows = result.fetchall()
+    html = """
+    <h1>Kvitton</h1>
 
-    html = "<h1>Kvitton</h1><ul>"
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Filnamn</th>
+            <th>Uppladdad</th>
+        </tr>
+    """
 
     for row in rows:
-        html += f"<li>{row.filename}</li>"
+        html += f"""
+        <tr>
+            <td>{row.id}</td>
+            <td>{row.filename}</td>
+            <td>{row.uploaded_at}</td>
+        </tr>
+        """
 
-    html += "</ul>"
+    html += "</table>"
 
     return HTMLResponse(html)
+
 
 @app.get("/upgrade-db")
 def upgrade_db():
