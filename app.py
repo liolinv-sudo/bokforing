@@ -114,38 +114,53 @@ def dbtest():
 
     return {"database": "ok", "result": value}
 
+# @app.get("/lista")
+# def lista():
+
+   # with engine.connect() as conn:
+     #   rows = conn.execute(
+         #   receipts.select()
+       # ).fetchall()
+
+    # html = """
+   # <h1>Kvitton</h1>
+
+    # <table border="1" cellpadding="5">
+     #   <tr>
+       #     <th>ID</th>
+        #    <th>Filnamn</th>
+         #   <th>Uppladdad</th>
+       # </tr>
+   # """
+
+  #  for row in rows:
+     #   html += f"""
+     #   <tr>
+        #    <td>{row.id}</td>
+         #   <td>{row.filename}</td>
+          #  <td>{row.uploaded_at}</td>
+       # </tr>
+      #  """
+
+  #  html += "</table>"
+
+   # return HTMLResponse(html)
+
 @app.get("/lista")
-def lista():
+def lista(request: Request):
 
     with engine.connect() as conn:
         rows = conn.execute(
             receipts.select()
         ).fetchall()
 
-    html = """
-    <h1>Kvitton</h1>
-
-    <table border="1" cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Filnamn</th>
-            <th>Uppladdad</th>
-        </tr>
-    """
-
-    for row in rows:
-        html += f"""
-        <tr>
-            <td>{row.id}</td>
-            <td>{row.filename}</td>
-            <td>{row.uploaded_at}</td>
-        </tr>
-        """
-
-    html += "</table>"
-
-    return HTMLResponse(html)
-
+    return templates.TemplateResponse(
+        request=request,
+        name="lista.html",
+        context={
+            "rows": rows
+        }
+    )
 
 @app.get("/upgrade-db")
 def upgrade_db():
